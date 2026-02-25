@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TAProgrammeTurnupPortal.Pages
+namespace TAProgrammeTurnupPortalNew.Pages
 {
-    public class TMPage
+    public class LoginPage
     {
     }
 }
