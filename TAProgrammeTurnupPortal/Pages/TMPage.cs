@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,18 @@ namespace TAProgrammeTurnupPortalNew.Pages
     {
         public void CreateNewTimeAndMaterialRecord(IWebDriver driver)
         {
-            //Click on create new button
-            IWebElement clickCreateNewButton = driver.FindElement(By.XPath("//*[@id=\"container\"]/p/a"));
-            clickCreateNewButton.Click();
+            //Exceptional Handling
+            try
+            {
+                //Click on create new button
+                IWebElement clickCreateNewButton = driver.FindElement(By.XPath("//*[@id=\"container\"]/p/a"));
+                clickCreateNewButton.Click();
+            }
+            catch (Exception ex) { 
+
+                Assert.Fail("Create New button has not found. " +ex.Message);
+          
+            }
 
             //Select the time from description
             IWebElement selectTypeCode = driver.FindElement(By.XPath("//span[contains(text(),'select')]"));
@@ -52,15 +62,19 @@ namespace TAProgrammeTurnupPortalNew.Pages
 
             IWebElement selectLastRow = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
 
-            if (selectLastRow.Text == "TA Programme 999")
+            //Assert.That(selectLastRow.Text == "TA Programme 999", "Time record has not created.");
+
+            Assert.That(selectLastRow.Text, Is.EqualTo("TA Programme 999"),"Time record was not created.");
+
+            /*if (selectLastRow.Text == "TA Programme 999")
             {
 
-                Console.WriteLine("Time record created successfully.");
+                Assert.Pass("Time record created successfully.");
             }
             else
             {
-                Console.WriteLine("Time record has not created.");
-            }
+                Assert.Fail("Time record has not created.");
+            }*/
         }
 
         public void EditTimeAndMaterialRecord(IWebDriver driver)
